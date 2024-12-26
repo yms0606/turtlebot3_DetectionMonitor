@@ -33,10 +33,13 @@ This repository introduces a cutting-edge surveillance and tracking system using
 <br>
 
 ## 📸 Demo Images
+
 <br>
-<img src="https://github.com/user-attachments/assets/5c283aa6-03ca-4b61-b7a2-c3d1545fa7c3" width=500>
+<img src="https://github.com/user-attachments/assets/fa549a65-30f4-4165-b9bf-d1e2dea68991" width=400>
 <br>
-<img src="https://github.com/user-attachments/assets/ca9bc561-a86a-49b0-9efb-aab081b11618" width=500>
+<img src="https://github.com/user-attachments/assets/5c283aa6-03ca-4b61-b7a2-c3d1545fa7c3" width=400>
+<br>
+<img src="https://github.com/user-attachments/assets/ca9bc561-a86a-49b0-9efb-aab081b11618" width=400>
 
 <br>
 <br>
