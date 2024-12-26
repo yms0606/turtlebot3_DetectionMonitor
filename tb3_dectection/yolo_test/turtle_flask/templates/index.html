@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>4조</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  
+  <body>
+    <div class="container">
+      <h1 class="mt-5 text-center custom-title">CCTV 및 경찰차</h1>
+      <div style="display: flex; gap:10px;">
+      	 <img src="{{ url_for('stream_cctv') }}" width="640" height="320">
+	 <img src="{{ url_for('stream_turtlebot') }}" width="640" height="320">
+      </div>
+
+      <!-- 상태 상자 -->
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <div id="statusBox1" class="status-box">대기</div>
+        </div>
+        <div class="col-md-4">
+          <div id="statusBox2" class="status-box">출동중</div>
+        </div>
+        <div class="col-md-4">
+          <div id="statusBox3" class="status-box">복귀중</div>
+        </div>
+      </div>
+
+      <!-- 차량 ID 입력 및 버튼 -->
+      <div class="row mt-4 align-items-center">
+        <div class="col-md-8">
+          <input type="text" id="inputText" class="form-control" placeholder="차량 ID를 입력하세요">
+        </div>
+        <div class="col-md-4 text-right">
+          <button id="submitButton" class="btn btn-primary custom-button">추격</button>
+        </div>
+      </div>
+
+      <!-- 데이터 필드 -->
+      <div>
+        <textarea id="coordinates" readonly></textarea>
+      </div>
+
+      <!-- 추격 기록 표시 섹션 -->
+      <h3 class="mt-4 text-center">추격 기록</h3>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>차량 ID</th>
+            <th>시간</th>
+            <th>삭제</th>
+          </tr>
+        </thead>
+        <tbody id="chaseRecordsTable">
+          <!-- 기록은 여기서 동적으로 채워짐 -->
+        </tbody>
+      </table>
+
+      <!-- 추격 기록 조회 버튼 -->
+      <div class="row mt-4">
+        <div class="col-md-12 text-center">
+          <button class="btn btn-info" onclick="fetchChaseRecords()">추격 기록 보기</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // 차량 ID 입력 및 명령 처리
+      document.getElementById('submitButton').addEventListener('click', async function () {
+        const inputText = document.getElementById('inputText').value;
+        if (inputText) {
+          try {
+            const response = await fetch('/command', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ vehicle_id: inputText }),
+            });
+            const result = await response.json();
+            alert(result.message);
+            document.getElementById('statusBox1').innerText = `명령 전송: ${inputText}`;
+            updateStatus('active')
+          } catch (error) {
+            alert('터틀봇과 통신 실패!');
+          }
+        } else {
+          alert('차량 ID를 입력하세요!');
+        }
+      });
+
+      // 추격 기록 조회 및 표시
+      function fetchChaseRecords() {
+        fetch('/get_chase_records')
+          .then(response => response.json())
+          .then(records => {
+            const tableBody = document.getElementById('chaseRecordsTable');
+            tableBody.innerHTML = ''; // 기존 내용 제거
+            records.forEach(record => {
+              const row = document.createElement('tr');
+              row.innerHTML = `
+                <td>${record[1]}</td>
+                <td>${record[2]}</td>
+                <td>
+                  <button class="btn btn-danger" onclick="deleteChaseRecord(${record[0]})">삭제</button>
+                </td>
+              `;  // [1]은 vehicle_id, [2]는 timestamp, [0]은 record_id
+              tableBody.appendChild(row);
+            });
+          })
+          .catch(error => {
+            console.error('추격 기록을 불러오는 데 실패했습니다.', error);
+          });
+      }
+
+      // 추격 기록 삭제
+      function deleteChaseRecord(recordId) {
+        if (confirm(`정말로 기록 ID ${recordId}을 삭제하시겠습니까?`)) {
+          fetch('/delete_chase_record', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ record_id: recordId }),
+          })
+          .then(response => response.json())
+          .then(result => {
+            alert(result.message);
+            fetchChaseRecords();  // 삭제 후 추격 기록 새로 불러오기
+          })
+          .catch(error => {
+            alert('기록 삭제에 실패했습니다.');
+            console.error('삭제 오류:', error);
+          });
+        }
+      }
+
+      // 데이터 업데이트
+      window.onload = function() {
+        const textarea = document.getElementById('coordinates');
+        const eventSource = new EventSource('/get_data');
+
+        eventSource.onmessage = function(event){
+            const data = JSON.parse(event.data);
+            textarea.value =`     X: ${data.x}, Y: ${data.y}` ;
+        };
+
+      };
+
+
+      //NEW
+      function updateStatus(status){
+
+        document.getElementById('statusBox1').classList.remove('statusBox1-active','statusBox2-active', 'statusBox3-active');
+        document.getElementById('statusBox2').classList.remove('statusBox1-active','statusBox2-active', 'statusBox3-active');
+        document.getElementById('statusBox3').classList.remove('statusBox1-active','statusBox2-active', 'statusBox3-active');
+        
+        if (status == 'wait'){
+          document.getElementById('statusBox1').classList.add('statusBox1-active');
+        } else if (status == 'active'){
+          document.getElementById('statusBox2').classList.add('statusBox2-active');
+        } else if (status == 'return'){
+          document.getElementById('statusBox3').classList.add('statusBox3-active');
+        }
+
+      }
+
+      //NEW
+      const eventSource = new EventSource('/chase');
+      eventSource.onmessage = function(event){
+          if (event.data == "return"){
+            updateStatus("return");
+          }
+      };
+
+      updateStatus('wait');
+      
+    </script>
+  </body>
+</html>

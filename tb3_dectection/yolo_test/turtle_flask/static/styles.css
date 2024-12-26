@@ -1,0 +1,106 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa; /* 부드러운 배경색 */
+  color: #333;
+}
+
+.custom-title {
+  font-size: 40px;
+  color: #343a40; /* 어두운 색상으로 강조 */
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.camera-container {
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.camera-stream {
+  width: 100%; /* 컨테이너 너비에 맞춤 */
+  height: auto; /* 비율 유지 */
+}
+
+.custom-subtitle {
+  font-size: 24px;
+  color: #495057;
+  margin-bottom: 15px;
+}
+
+.status-box {
+  border: 2px solid #6c757d;
+  border-radius: 10px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  background-color: #f1f3f5;
+  color: #495057;
+  font-weight: bold;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.statusBox1-active {
+  background-color: #52E252;
+  color: black;
+  border-color: black;
+}
+.statusBox2-active {
+  background-color: #EC3939;
+  color: black;
+  border-color: black;
+}
+.statusBox3-active {
+  background-color: #266EDB;
+  color: black;
+  border-color: black;
+}
+
+
+
+
+.status-box:hover {
+  background-color: #e9ecef;
+  transform: scale(1.05); /* Hover 효과 */
+}
+
+.custom-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.custom-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px); /* 버튼이 눌리는 느낌 */
+}
+
+textarea {
+  width: 100%;
+  height: 150px;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid #ced4da;
+  font-size: 14px;
+  color: #495057;
+  resize: none;
+  background-color: #f8f9fa;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: #e9ecef;
+}
