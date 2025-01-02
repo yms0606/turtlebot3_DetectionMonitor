@@ -1,7 +1,7 @@
 ## 🕵️‍♂️ TurtleBot3 Detection and Monitoring System
 
 This project is a watching and tracking system using **TurtleBot3**, integrated with **CCTV cameras**, **YOLO object detection**, and **Flask** for a real-time monitoring UI. The system is designed to track and pursue vehicles dynamically, ensuring robust monitoring and security.
-<br><br>**YOLO tracking을 사용하여 객체를 추적하고, 해당 객체의 좌표를 실시간으로 변환하여 터틀봇이 객체를 쫓아가는 감시 추적 시스템을 구현하였습니다.**
+<br><br>**YOLO tracking을 사용하여 객체를 추적하고, 해당 객체의 좌표를 실시간으로 변환하여 터틀봇이 객체를 쫓아가는 감시 추적 시스템**
 <br>
 <br>
 
@@ -20,6 +20,8 @@ This project is a watching and tracking system using **TurtleBot3**, integrated 
 <br>
 
 ## 📸 Demo Images
+
+**영상이 날라가 이미지로 대체하겠습니다.**
 
 <br>
 <img src="https://github.com/user-attachments/assets/fa549a65-30f4-4165-b9bf-d1e2dea68991" width=400>
