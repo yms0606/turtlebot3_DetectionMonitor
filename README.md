@@ -1,34 +1,21 @@
 ## 🕵️‍♂️ TurtleBot3 Detection and Monitoring System
 
-This repository introduces a cutting-edge surveillance and tracking system using **TurtleBot3**, integrated with **CCTV cameras**, **YOLO object detection**, and **Flask** for a real-time monitoring UI. The system is designed to track and pursue vehicles dynamically, ensuring robust monitoring and security.
+This project is a watching and tracking system using **TurtleBot3**, integrated with **CCTV cameras**, **YOLO object detection**, and **Flask** for a real-time monitoring UI. The system is designed to track and pursue vehicles dynamically, ensuring robust monitoring and security.
+<br><br>**YOLO tracking을 사용하여 객체를 추적하고, 해당 객체의 좌표를 실시간으로 변환하여 터틀봇이 객체를 쫓아가는 감시 추적 시스템을 구현하였습니다.**
 <br>
 <br>
 
-## 📋 Project Overview
+## 📋 Project Features
 
 - **CCTV Integration**: Monitors the entire map using real-time camera feeds.
 - **YOLO Object Detection**: Detects and tracks vehicles with unique IDs for real-time tracking.
-- **Flask UI**: Displays CCTV footage and allows user commands to be sent to the robot.
+- **Flask UI**: It shows the cctv screen, enters the ID of the object to be tracked, and shows coordinate information in real time.
 - **Dynamic Vehicle Tracking**: Converts image coordinates from the CCTV to TurtleBot3’s spatial coordinates and transmits them.
-- **Pursuit Algorithm**: Enables TurtleBot3 to chase the tracked vehicle, even during evasion, by continuously updating the tracked ID.
 - **Data Storage**: Utilizes SQLite for storing tracking information and generating statistical reports.
-- **ROS Communication**: Facilitates seamless communication between components.
+- **ROS2 Communication**: Facilitates seamless communication between components.
 <br>
+<img src="https://github.com/user-attachments/assets/b70bba41-a1e2-4246-9b6e-66055ad5addf" width=500>
 <br>
-
-## 🌟 Key Features
-
-- **Real-Time Surveillance**: 
-  View live CCTV footage in a Flask-powered UI.
-- **Interactive Tracking**: 
-  Input the tracked vehicle’s ID in the UI, and the TurtleBot3 immediately pursues the target.
-- **Coordinate Transformation**: 
-  Converts camera coordinates into spatial data for TurtleBot3 navigation.
-- **SQLite Integration**: 
-  Logs tracking data for analysis and reporting.
-
-<img src="https://github.com/user-attachments/assets/b70bba41-a1e2-4246-9b6e-66055ad5addf" width=600>
-
 <br>
 <br>
 
