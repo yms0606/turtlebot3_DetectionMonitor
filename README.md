@@ -21,7 +21,6 @@ This project is a watching and tracking system using **TurtleBot3**, integrated 
 
 ## 📸 Demo Images
 
-**영상이 날라가 이미지로 대체하겠습니다.**
 
 <br>
 <img src="https://github.com/user-attachments/assets/fa549a65-30f4-4165-b9bf-d1e2dea68991" width=400>
